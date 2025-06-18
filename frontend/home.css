@@ -1,0 +1,283 @@
+/* home.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --background-color: #141414;
+    --card-color: #1C1C1C;
+    --primary-text-color: #E0E0E0;
+    --secondary-text-color: #AAAAAA;
+    --accent-color: #D32F2F;
+    --accent-color-hover: #B71C1C;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+}
+
+/* --- HEADER --- */
+.main-header {
+    background-color: #181818;
+    padding: 15px 5%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: white;
+}
+
+.logo-accent {
+    color: var(--accent-color);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#welcome-message {
+    font-size: 1em;
+    color: var(--secondary-text-color);
+}
+
+.btn-logout {
+    background: none;
+    border: 1px solid var(--secondary-text-color);
+    color: var(--secondary-text-color);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+/* --- MAIN CONTAINER & SECTIONS --- */
+.container {
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0 5%;
+}
+
+.search-section, .lists-container {
+    margin-bottom: 40px;
+}
+
+h2 {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 10px;
+    color: white;
+}
+
+h2 i {
+    margin-right: 10px;
+    color: var(--accent-color);
+}
+
+
+/* --- SEARCH FORM --- */
+#search-form {
+    display: flex;
+    gap: 10px;
+}
+
+#search-input {
+    flex-grow: 1;
+    padding: 15px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #2A2A2A;
+    color: white;
+}
+#search-input::placeholder {
+    color: var(--secondary-text-color);
+}
+
+.btn-primary {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: var(--accent-color);
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-color-hover);
+}
+
+
+/* --- MUDANÇA 1: Grid de Busca com Cards Menores --- */
+#search-results {
+    display: grid;
+    /* Alterado de 180px para 140px para diminuir o tamanho */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+    gap: 20px;
+}
+/* Fontes menores para os cards da busca */
+#search-results .movie-info h3 {
+    font-size: 0.9em;
+}
+#search-results .btn-add-list {
+    font-size: 0.75em;
+    padding: 6px;
+}
+/* --- FIM DA MUDANÇA 1 --- */
+
+/* Grid para as listas de usuário (tamanho original) */
+.movie-grid-lists {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+
+/* Estilo geral dos cards */
+.movie-card {
+    background-color: var(--card-color);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+}
+
+.movie-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    aspect-ratio: 2 / 3;
+    background-color: #333;
+}
+
+.movie-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.movie-info h3 {
+    font-size: 1em;
+    margin: 0 0 10px 0;
+    color: var(--primary-text-color);
+}
+
+.movie-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.btn-add-list {
+    background-color: #333;
+    color: var(--primary-text-color);
+    border: 1px solid #444;
+    width: 100%;
+    padding: 8px;
+    font-size: 0.8em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.btn-add-list i {
+    margin-right: 8px;
+    width: 15px;
+}
+
+.btn-add-list:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.btn-add-list.in-list {
+    background-color: #004D40; /* Verde escuro */
+    color: #A7FFEB;
+    border-color: #004D40;
+    cursor: not-allowed;
+}
+
+.empty-list-message {
+    color: var(--secondary-text-color);
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 20px;
+}
+
+/* --- MUDANÇA 2: Estilos para o Botão de Limpar e Cabeçalho --- */
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Adiciona espaço antes da grade de filmes */
+}
+
+.results-header h2 {
+    margin: 0; /* Remove a margem padrão do h2 */
+    border: none;
+    padding: 0;
+}
+
+.btn-clear {
+    background: none;
+    border: 1px solid var(--secondary-text-color);
+    color: var(--secondary-text-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-clear:hover {
+    background-color: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+
+.hidden {
+    display: none !important; /* Garante que o elemento ficará escondido */
+}
+/* --- FIM DA MUDANÇA 2 --- */
