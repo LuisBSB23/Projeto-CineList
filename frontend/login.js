@@ -130,9 +130,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const nome = registerNameInput.value.trim();
         const email = registerEmailInput.value.trim();
         const senha = registerPasswordInput.value.trim();
+        const emailRegex = /^.{4,}@gmail\.com$/;
 
         if (!nome || !email || !senha) {
             return showMessage(registerSubText, 'Por favor, preencha todos os campos.', true);
+        }
+        
+        if (!emailRegex.test(email)) {
+            return showMessage(registerSubText, 'Formato de e-mail inválido. Use o formato xxxx@gmail.com (pelo menos 4 caracteres).', true);
         }
 
         try {
@@ -159,8 +164,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     verifyEmailBtn.addEventListener('click', async () => {
         const email = forgotEmailInput.value.trim();
+        const emailRegex = /^.{4,}@gmail\.com$/;
+
         if (!email) {
             return showMessage(forgotSubText, 'Por favor, insira um e-mail.', true);
+        }
+
+        if (!emailRegex.test(email)) {
+            return showMessage(forgotSubText, 'Formato de e-mail inválido. Use o formato xxxx@gmail.com (pelo menos 4 caracteres).', true);
         }
 
         try {

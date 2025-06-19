@@ -1,17 +1,27 @@
 // backend/server.js
 
-// NOVO: Carrega as variáveis de ambiente do arquivo .env
-require('dotenv').config();
+const path = require('path');
+// ALTERADO: Força o carregamento do arquivo .env que está na mesma pasta que o server.js
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const path = require('path');
-const axios = require('axios'); // NOVO: Para fazer requisições HTTP seguras
+const axios = require('axios');
+const knex = require('knex'); // ADICIONADO: Knex é importado diretamente.
 
-// NOVO: Configuração e inicialização do Knex
-const knexConfig = require('./knexfile').development;
-const db = require('knex')(knexConfig);
+// ALTERADO: A conexão com o banco é feita diretamente aqui.
+// Isso garante que as variáveis de ambiente já foram carregadas.
+const db = knex({
+    client: 'mysql2',
+    connection: {
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABASE,
+        port: process.env.DB_PORT
+    }
+});
 
 const app = express();
 const port = 3000;
@@ -29,12 +39,16 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/login.html'));
 });
 
-// Rota de Cadastro (ALTERADA para async/await e Knex)
+// Rota de Cadastro
 app.post('/registrar', async (req, res) => {
     const { nome, email, senha } = req.body;
+    const emailRegex = /^.{4,}@gmail\.com$/;
 
     if (!nome || !email || !senha) {
         return res.status(400).json({ message: 'Por favor, preencha todos os campos.' });
+    }
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Formato de e-mail inválido. Use o formato xxxx@gmail.com (pelo menos 4 caracteres).' });
     }
     if (senha.length < 6) {
         return res.status(400).json({ message: 'A senha deve ter pelo menos 6 caracteres.' });
@@ -53,7 +67,7 @@ app.post('/registrar', async (req, res) => {
     }
 });
 
-// Rota de Login (ALTERADA para async/await e Knex)
+// Rota de Login
 app.post('/logar', async (req, res) => {
     const { email, senha } = req.body;
 
@@ -75,11 +89,16 @@ app.post('/logar', async (req, res) => {
     }
 });
 
-// Rota para Verificar E-mail (ALTERADA para async/await e Knex)
+// Rota para Verificar E-mail
 app.post('/verificar-email', async (req, res) => {
     const { email } = req.body;
+    const emailRegex = /^.{4,}@gmail\.com$/;
+
     if (!email) {
         return res.status(400).json({ message: 'O campo de email é obrigatório.' });
+    }
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Formato de e-mail inválido. Use o formato xxxx@gmail.com (pelo menos 4 caracteres).' });
     }
 
     try {
@@ -95,7 +114,7 @@ app.post('/verificar-email', async (req, res) => {
     }
 });
 
-// Rota para Redefinir Senha (ALTERADA para async/await e Knex)
+// Rota para Redefinir Senha
 app.post('/redefinir-senha', async (req, res) => {
     const { email, novaSenha } = req.body;
     if (!email || !novaSenha || novaSenha.length < 6) {
@@ -115,17 +134,14 @@ app.post('/redefinir-senha', async (req, res) => {
     }
 });
 
-// --- NOVAS ROTAS PARA GERENCIAR LISTAS DE FILMES ---
+// --- ROTAS PARA GERENCIAR LISTAS DE FILMES ---
 
-// NOVO: Rota segura para buscar filmes, usando a chave de API do backend
 app.get('/api/search', async (req, res) => {
     const { query } = req.query;
     if (!query) {
         return res.status(400).json({ message: 'O termo de busca é obrigatório.' });
     }
-
     const tmdbUrl = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_API_KEY}&query=${encodeURIComponent(query)}&language=pt-BR`;
-
     try {
         const response = await axios.get(tmdbUrl);
         res.status(200).json(response.data);
@@ -135,8 +151,6 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
-
-// Rota para BUSCAR as listas de um usuário (ALTERADA para Knex)
 app.get('/api/listas/:userId', async (req, res) => {
     const { userId } = req.params;
     try {
@@ -150,13 +164,11 @@ app.get('/api/listas/:userId', async (req, res) => {
     }
 });
 
-// Rota para ADICIONAR um filme a uma lista (ALTERADA para Knex)
 app.post('/api/listas', async (req, res) => {
     const { id_usuario, id_filme, titulo_filme, poster_path, tipo_lista } = req.body;
     if (!id_usuario || !id_filme || !titulo_filme || !tipo_lista) {
         return res.status(400).json({ message: 'Dados insuficientes para adicionar à lista.' });
     }
-
     try {
         await db('listas_de_filmes').insert({ id_usuario, id_filme, titulo_filme, poster_path, tipo_lista });
         res.status(201).json({ message: 'Filme adicionado com sucesso!' });
@@ -169,18 +181,16 @@ app.post('/api/listas', async (req, res) => {
     }
 });
 
-// NOVO: Rota para ALTERAR um filme de lista (UPDATE)
+// Rota para ALTERAR um filme de lista (UPDATE)
 app.put('/api/listas', async (req, res) => {
     const { id_usuario, id_filme, tipo_lista } = req.body;
     if (!id_usuario || !id_filme || !tipo_lista) {
         return res.status(400).json({ message: 'Dados insuficientes para alterar a lista.' });
     }
-
     try {
         const count = await db('listas_de_filmes')
             .where({ id_usuario, id_filme })
             .update({ tipo_lista });
-
         if (count > 0) {
             res.status(200).json({ message: 'Filme movido para outra lista com sucesso.' });
         } else {
@@ -198,7 +208,6 @@ app.delete('/api/listas', async (req, res) => {
     if (!id_usuario || !id_filme || !tipo_lista) {
         return res.status(400).json({ message: 'Dados insuficientes para remover da lista.' });
     }
-
     try {
         const count = await db('listas_de_filmes').where({ id_usuario, id_filme, tipo_lista }).del();
         if (count > 0) {
