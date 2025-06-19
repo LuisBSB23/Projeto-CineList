@@ -9,49 +9,49 @@
 </head>
 <body>
 
-    <div id="login-screen" class="screen">
-        <div class="auth-container">
-            <div class="image-panel">
-                <div class="image-content">
+    <div id="tela-login" class="tela">
+        <div class="container-autenticacao">
+            <div class="painel-imagem">
+                <div class="conteudo-imagem">
                     <h1>CINELIST</h1>
                     <h2>Faça seu login <i class="fas fa-arrow-right"></i></h2>
                 </div>
             </div>
-            <div class="form-panel">
-                <div class="form-wrapper">
+            <div class="painel-formulario">
+                <div class="envolve-formulario">
                     <h1>Login</h1>
-                    <p class="sub-text"></p>
+                    <p class="sub-texto"></p>
                     <input type="email" placeholder="Email">
-                    <div class="password-container">
-                        <input type="password" placeholder="Senha" id="login-password">
-                        <i class="fa fa-eye-slash toggle-password" id="toggle-login-password"></i>
+                    <div class="container-senha">
+                        <input type="password" placeholder="Senha" id="senha-login">
+                        <i class="fa fa-eye-slash alterna-senha" id="alterna-senha-login"></i>
                     </div>
-                    <a href="#" class="forgot-password" id="show-forgot-password">Esqueceu a senha?</a>
-                    <button type="button" class="btn-primary">Logar</button>
-                    <p class="switch-form-text">Não tem conta? <a href="#" id="show-register">Registre-se</a></p>
+                    <a href="#" class="esqueceu-senha" id="mostrar-esqueceu-senha">Esqueceu a senha?</a>
+                    <button type="button" class="btn-primario">Logar</button>
+                    <p class="texto-alterna-form">Não tem conta? <a href="#" id="mostrar-cadastro">Registre-se</a></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="register-screen" class="screen">
-        <div class="auth-container">
-            <div class="form-panel">
-                <div class="form-wrapper">
+    <div id="tela-cadastro" class="tela">
+        <div class="container-autenticacao">
+            <div class="painel-formulario">
+                <div class="envolve-formulario">
                     <h1>Cadastro</h1>
-                    <p class="sub-text"></p>
+                    <p class="sub-texto"></p>
                     <input type="text" placeholder="Nome">
                     <input type="email" placeholder="Email">
-                    <div class="password-container">
-                        <input type="password" placeholder="Senha" id="register-password">
-                        <i class="fa fa-eye-slash toggle-password" id="toggle-register-password"></i>
+                    <div class="container-senha">
+                        <input type="password" placeholder="Senha" id="senha-cadastro">
+                        <i class="fa fa-eye-slash alterna-senha" id="alterna-senha-cadastro"></i>
                     </div>
-                    <button type="button" class="btn-primary">Cadastrar</button>
-                    <p class="switch-form-text">Já tem conta? <a href="#" id="show-login">Login</a></p>
+                    <button type="button" class="btn-primario">Cadastrar</button>
+                    <p class="texto-alterna-form">Já tem conta? <a href="#" id="mostrar-login">Login</a></p>
                 </div>
             </div>
-            <div class="image-panel">
-                <div class="image-content">
+            <div class="painel-imagem">
+                <div class="conteudo-imagem">
                     <h1>CINELIST</h1>
                     <h2><i class="fas fa-arrow-left"></i> Cadastre-se já</h2>
                 </div>
@@ -59,29 +59,29 @@
         </div>
     </div>
 
-    <div id="forgot-password-screen" class="screen">
-        <div class="form-container">
+    <div id="tela-esqueceu-senha" class="tela">
+        <div class="container-formulario">
             <h1>Redefinir Senha</h1>
-            <p class="sub-text">Insira seu e-mail para validação.</p>
+            <p class="sub-texto">Insira seu e-mail para validação.</p>
 
-            <div id="email-step" class="form-step">
-                <input type="email" placeholder="Email" id="forgot-email">
-                <button type="button" class="btn-primary" id="verify-email-btn">Verificar Email</button>
+            <div id="etapa-email" class="etapa-form">
+                <input type="email" placeholder="Email" id="email-esquecido">
+                <button type="button" class="btn-primario" id="btn-verificar-email">Verificar Email</button>
             </div>
 
-            <div id="password-step" class="form-step">
-                <div class="password-container">
-                    <input type="password" placeholder="Nova Senha" id="new-password">
-                    <i class="fa fa-eye-slash toggle-password" id="toggle-new-password"></i>
+            <div id="etapa-senha" class="etapa-form">
+                <div class="container-senha">
+                    <input type="password" placeholder="Nova Senha" id="nova-senha">
+                    <i class="fa fa-eye-slash alterna-senha" id="alterna-nova-senha"></i>
                 </div>
-                <div class="password-container">
-                    <input type="password" placeholder="Confirme a Nova Senha" id="confirm-new-password">
-                    <i class="fa fa-eye-slash toggle-password" id="toggle-confirm-password"></i>
+                <div class="container-senha">
+                    <input type="password" placeholder="Confirme a Nova Senha" id="confirmar-nova-senha">
+                    <i class="fa fa-eye-slash alterna-senha" id="alterna-confirmar-senha"></i>
                 </div>
-                <button type="button" class="btn-primary" id="reset-password-btn">Redefinir Senha</button>
+                <button type="button" class="btn-primario" id="btn-redefinir-senha">Redefinir Senha</button>
             </div>
             
-            <p class="switch-form-text"><a href="#" id="back-to-login">Voltar para Login</a></p>
+            <p class="texto-alterna-form"><a href="#" id="voltar-para-login">Voltar para Login</a></p>
         </div>
     </div>
 

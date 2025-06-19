@@ -2,23 +2,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 :root {
-    --background-color: #141414;
-    --card-color: #1C1C1C;
-    --primary-text-color: #E0E0E0;
-    --secondary-text-color: #AAAAAA;
-    --accent-color: #D32F2F;
-    --accent-color-hover: #B71C1C;
+    --cor-fundo: #141414;
+    --cor-card: #1C1C1C;
+    --cor-texto-primario: #E0E0E0;
+    --cor-texto-secundario: #AAAAAA;
+    --cor-destaque: #D32F2F;
+    --cor-destaque-hover: #B71C1C;
 }
 
 body {
     margin: 0;
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: var(--background-color);
-    color: var(--primary-text-color);
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-primario);
 }
 
-/* --- HEADER --- */
-.main-header {
+/* --- CABECALHO --- */
+.cabecalho-principal {
     background-color: #181818;
     padding: 15px 5%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
@@ -27,7 +27,7 @@ body {
     z-index: 1000;
 }
 
-.header-content {
+.conteudo-cabecalho {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,32 +35,32 @@ body {
     margin: 0 auto;
 }
 
-.main-header h1 {
+.cabecalho-principal h1 {
     margin: 0;
     font-size: 1.8em;
     font-weight: 700;
     color: white;
 }
 
-.logo-accent {
-    color: var(--accent-color);
+.logo-destaque {
+    color: var(--cor-destaque);
 }
 
-.user-info {
+.info-usuario {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-#welcome-message {
+#mensagem-boas-vindas {
     font-size: 1em;
-    color: var(--secondary-text-color);
+    color: var(--cor-texto-secundario);
 }
 
 .btn-logout {
     background: none;
-    border: 1px solid var(--secondary-text-color);
-    color: var(--secondary-text-color);
+    border: 1px solid var(--cor-texto-secundario);
+    color: var(--cor-texto-secundario);
     padding: 8px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -68,19 +68,19 @@ body {
 }
 
 .btn-logout:hover {
-    background-color: var(--accent-color);
+    background-color: var(--cor-destaque);
     color: white;
-    border-color: var(--accent-color);
+    border-color: var(--cor-destaque);
 }
 
-/* --- MAIN CONTAINER & SECTIONS --- */
+/* --- CONTAINER PRINCIPAL & SEÇÕES --- */
 .container {
     max-width: 1400px;
     margin: 30px auto;
     padding: 0 5%;
 }
 
-.search-section, .lists-container {
+.secao-busca, .container-listas {
     margin-bottom: 40px;
 }
 
@@ -88,24 +88,23 @@ h2 {
     font-size: 1.6em;
     font-weight: 700;
     margin-bottom: 20px;
-    border-left: 4px solid var(--accent-color);
+    border-left: 4px solid var(--cor-destaque);
     padding-left: 10px;
     color: white;
 }
 
 h2 i {
     margin-right: 10px;
-    color: var(--accent-color);
+    color: var(--cor-destaque);
 }
 
-
-/* --- SEARCH FORM --- */
-#search-form {
+/* --- FORMULÁRIO DE BUSCA --- */
+#form-busca {
     display: flex;
     gap: 10px;
 }
 
-#search-input {
+#input-busca {
     flex-grow: 1;
     padding: 15px;
     font-size: 1em;
@@ -114,55 +113,50 @@ h2 i {
     background-color: #2A2A2A;
     color: white;
 }
-#search-input::placeholder {
-    color: var(--secondary-text-color);
+#input-busca::placeholder {
+    color: var(--cor-texto-secundario);
 }
 
-.btn-primary {
+.btn-primario {
     padding: 15px 25px;
     border: none;
     border-radius: 5px;
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
-    background-color: var(--accent-color);
+    background-color: var(--cor-destaque);
     color: white;
     transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover {
-    background-color: var(--accent-color-hover);
+.btn-primario:hover {
+    background-color: var(--cor-destaque-hover);
 }
 
-
-/* --- MUDANÇA 1: Grid de Busca com Cards Menores --- */
-#search-results {
+/* --- Grid de Busca com Cards Menores --- */
+#resultados-busca {
     display: grid;
-    /* Alterado de 180px para 140px para diminuir o tamanho */
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
     gap: 20px;
 }
-/* Fontes menores para os cards da busca */
-#search-results .movie-info h3 {
+#resultados-busca .info-filme h3 {
     font-size: 0.9em;
 }
-#search-results .btn-add-list {
+#resultados-busca .btn-adicionar-lista {
     font-size: 0.75em;
     padding: 6px;
 }
-/* --- FIM DA MUDANÇA 1 --- */
 
 /* Grid para as listas de usuário (tamanho original) */
-.movie-grid-lists {
+.grid-filmes-listas {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 20px;
 }
 
-
 /* Estilo geral dos cards */
-.movie-card {
-    background-color: var(--card-color);
+.card-filme {
+    background-color: var(--cor-card);
     border-radius: 8px;
     overflow: hidden;
     position: relative;
@@ -171,12 +165,12 @@ h2 i {
     flex-direction: column;
 }
 
-.movie-card:hover {
+.card-filme:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.7);
 }
 
-.movie-card img {
+.card-filme img {
     width: 100%;
     height: auto;
     display: block;
@@ -184,7 +178,7 @@ h2 i {
     background-color: #333;
 }
 
-.movie-info {
+.info-filme {
     padding: 15px;
     flex-grow: 1;
     display: flex;
@@ -192,22 +186,22 @@ h2 i {
     justify-content: space-between;
 }
 
-.movie-info h3 {
+.info-filme h3 {
     font-size: 1em;
     margin: 0 0 10px 0;
-    color: var(--primary-text-color);
+    color: var(--cor-texto-primario);
 }
 
-.movie-actions {
+.acoes-filme {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-top: 10px;
 }
 
-.btn-add-list {
+.btn-adicionar-lista {
     background-color: #333;
-    color: var(--primary-text-color);
+    color: var(--cor-texto-primario);
     border: 1px solid #444;
     width: 100%;
     padding: 8px;
@@ -218,49 +212,49 @@ h2 i {
     text-align: left;
 }
 
-.btn-add-list i {
+.btn-adicionar-lista i {
     margin-right: 8px;
     width: 15px;
 }
 
-.btn-add-list:hover {
-    background-color: var(--accent-color);
+.btn-adicionar-lista:hover {
+    background-color: var(--cor-destaque);
     color: white;
-    border-color: var(--accent-color);
+    border-color: var(--cor-destaque);
 }
 
-.btn-add-list.in-list {
+.btn-adicionar-lista.na-lista {
     background-color: #004D40; /* Verde escuro */
     color: #A7FFEB;
     border-color: #004D40;
     cursor: not-allowed;
 }
 
-.empty-list-message {
-    color: var(--secondary-text-color);
+.mensagem-lista-vazia {
+    color: var(--cor-texto-secundario);
     grid-column: 1 / -1;
     text-align: center;
     padding: 20px;
 }
 
-/* --- MUDANÇA 2: Estilos para o Botão de Limpar e Cabeçalho --- */
-.results-header {
+/* Estilos para o Botão de Limpar e Cabeçalho */
+.cabecalho-resultados {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px; /* Adiciona espaço antes da grade de filmes */
+    margin-bottom: 20px;
 }
 
-.results-header h2 {
-    margin: 0; /* Remove a margem padrão do h2 */
+.cabecalho-resultados h2 {
+    margin: 0;
     border: none;
     padding: 0;
 }
 
-.btn-clear {
+.btn-limpar {
     background: none;
-    border: 1px solid var(--secondary-text-color);
-    color: var(--secondary-text-color);
+    border: 1px solid var(--cor-texto-secundario);
+    color: var(--cor-texto-secundario);
     padding: 5px 10px;
     border-radius: 20px;
     cursor: pointer;
@@ -271,13 +265,12 @@ h2 i {
     transition: all 0.3s ease;
 }
 
-.btn-clear:hover {
-    background-color: var(--accent-color);
+.btn-limpar:hover {
+    background-color: var(--cor-destaque);
     color: white;
-    border-color: var(--accent-color);
+    border-color: var(--cor-destaque);
 }
 
-.hidden {
-    display: none !important; /* Garante que o elemento ficará escondido */
+.oculto {
+    display: none !important;
 }
-/* --- FIM DA MUDANÇA 2 --- */

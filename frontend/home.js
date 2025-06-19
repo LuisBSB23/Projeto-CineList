@@ -2,25 +2,24 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- SELETORES E VARIÁVEIS GLOBAIS ---
-    const welcomeMessage = document.getElementById('welcome-message');
-    const logoutBtn = document.getElementById('logout-btn');
-    const searchForm = document.getElementById('search-form');
-    const searchInput = document.getElementById('search-input');
-    const searchResultsContainer = document.getElementById('search-results');
+    const mensagemBoasVindas = document.getElementById('mensagem-boas-vindas');
+    const btnLogout = document.getElementById('btn-logout');
+    const formBusca = document.getElementById('form-busca');
+    const inputBusca = document.getElementById('input-busca');
+    const containerResultadosBusca = document.getElementById('resultados-busca');
     
-    const clearSearchBtn = document.getElementById('clear-search-btn');
-    const searchResultsTitle = document.getElementById('search-results-title');
+    const btnLimparBusca = document.getElementById('btn-limpar-busca');
+    const tituloResultadosBusca = document.getElementById('titulo-resultados-busca');
 
-    const lists = {
-        assistir: document.getElementById('list-assistir'),
-        assistidos: document.getElementById('list-assistidos'),
-        favoritos: document.getElementById('list-favoritos')
+    const listas = {
+        assistir: document.getElementById('lista-assistir'),
+        assistidos: document.getElementById('lista-assistidos'),
+        favoritos: document.getElementById('lista-favoritos')
     };
     
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
     const backendUrl = 'http://localhost:3000';
     
-    // const tmdbApiKey = 'adf31f5a689f9d3c8c0e9ac55fc8e70a'; // REMOVIDO: Chave agora está no backend
     const tmdbImageUrl = 'https://image.tmdb.org/t/p/w500';
 
     // --- VERIFICAÇÃO DE LOGIN ---
@@ -28,12 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = 'login.html';
         return;
     }
-    welcomeMessage.textContent = `Bem-vindo(a), ${usuarioLogado.nome}!`;
+    mensagemBoasVindas.textContent = `Bem-vindo(a), ${usuarioLogado.nome}!`;
 
     // --- FUNÇÕES PRINCIPAIS ---
-
-    // ALTERADO: Busca filmes através do nosso backend
-    async function searchMovies(query) {
+    async function buscarFilmes(query) {
         if (!query) return;
         
         const url = `${backendUrl}/api/search?query=${encodeURIComponent(query)}`;
@@ -41,115 +38,110 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            // A API do TMDb aninha os resultados em uma propriedade 'results'
-            displayMovies(data.results, searchResultsContainer);
+            exibirFilmes(data.results, containerResultadosBusca);
         } catch (error) {
             console.error('Erro ao buscar filmes:', error);
-            searchResultsContainer.innerHTML = '<p class="empty-list-message">Erro ao buscar resultados. Tente novamente.</p>';
+            containerResultadosBusca.innerHTML = '<p class="mensagem-lista-vazia">Erro ao buscar resultados. Tente novamente.</p>';
         }
     }
 
-    function displayMovies(movies, container, listName = null) {
+    function exibirFilmes(filmes, container, nomeLista = null) {
         container.innerHTML = '';
         
-        if (container === searchResultsContainer) {
-            const hasResults = movies && movies.length > 0;
-            clearSearchBtn.classList.toggle('hidden', !hasResults);
-            searchResultsTitle.classList.toggle('hidden', !hasResults);
+        if (container === containerResultadosBusca) {
+            const temResultados = filmes && filmes.length > 0;
+            btnLimparBusca.classList.toggle('oculto', !temResultados);
+            tituloResultadosBusca.classList.toggle('oculto', !temResultados);
         }
         
-        if (!movies || movies.length === 0) {
-            if (listName) {
-                container.innerHTML = `<p class="empty-list-message">Sua lista está vazia.</p>`;
+        if (!filmes || filmes.length === 0) {
+            if (nomeLista) {
+                container.innerHTML = `<p class="mensagem-lista-vazia">Sua lista está vazia.</p>`;
             }
             return;
         }
 
-        movies.forEach(movie => {
-            const movieId = movie.id_filme || movie.id;
-            const movieTitle = movie.titulo_filme || movie.title;
-            const posterPath = movie.poster_path;
+        filmes.forEach(filme => {
+            const filmeId = filme.id_filme || filme.id;
+            const filmeTitulo = filme.titulo_filme || filme.title;
+            const posterPath = filme.poster_path;
             const imageUrl = posterPath ? `${tmdbImageUrl}${posterPath}` : 'https://via.placeholder.com/500x750?text=Sem+Imagem';
 
-            const movieCard = document.createElement('div');
-            movieCard.className = 'movie-card';
-            movieCard.dataset.movieId = movieId;
-            movieCard.dataset.movieTitle = movieTitle;
-            movieCard.dataset.posterPath = posterPath;
+            const cardFilme = document.createElement('div');
+            cardFilme.className = 'card-filme';
+            cardFilme.dataset.movieId = filmeId;
+            cardFilme.dataset.movieTitle = filmeTitulo;
+            cardFilme.dataset.posterPath = posterPath;
 
-            movieCard.innerHTML = `
-                <img src="${imageUrl}" alt="Pôster de ${movieTitle}">
-                <div class="movie-info">
-                    <h3>${movieTitle}</h3>
-                    <div class="movie-actions">
-                        ${getButtonsHTML(listName, movieId)}
+            cardFilme.innerHTML = `
+                <img src="${imageUrl}" alt="Pôster de ${filmeTitulo}">
+                <div class="info-filme">
+                    <h3>${filmeTitulo}</h3>
+                    <div class="acoes-filme">
+                        ${getBotoesHTML(nomeLista, filmeId)}
                     </div>
                 </div>
             `;
-            container.appendChild(movieCard);
+            container.appendChild(cardFilme);
         });
     }
 
-    // ALTERADO: Gera botões de "Mover" para filmes que já estão em uma lista
-    function getButtonsHTML(listName, movieId) {
-        if (listName) { // Se o filme já está numa lista...
-            const allLists = {
+    function getBotoesHTML(nomeLista, filmeId) {
+        if (nomeLista) { 
+            const todasAsListas = {
                 assistir: 'Quero Assistir',
                 assistidos: 'Já Assisti',
                 favoritos: 'Favoritos'
             };
-            let buttonsHTML = '';
+            let botoesHTML = '';
 
-            // Adiciona botões para mover para as outras listas
-            for (const key in allLists) {
-                if (key !== listName) {
-                    buttonsHTML += `<button class="btn-add-list btn-move" data-list-type="${key}"><i class="fa-solid fa-arrow-right-arrow-left"></i> Mover para ${allLists[key]}</button>`;
+            for (const key in todasAsListas) {
+                if (key !== nomeLista) {
+                    botoesHTML += `<button class="btn-adicionar-lista btn-mover" data-list-type="${key}"><i class="fa-solid fa-arrow-right-arrow-left"></i> Mover para ${todasAsListas[key]}</button>`;
                 }
             }
 
-            // Adiciona o botão de remover
-            buttonsHTML += `<button class="btn-add-list btn-remove" data-list-type="${listName}"><i class="fa-solid fa-trash"></i> Remover</button>`;
-            return buttonsHTML;
+            botoesHTML += `<button class="btn-adicionar-lista btn-remover" data-list-type="${nomeLista}"><i class="fa-solid fa-trash"></i> Remover</button>`;
+            return botoesHTML;
 
-        } else { // Se for um filme da busca, mostra os botões de adicionar
+        } else { 
             return `
-                <button class="btn-add-list" data-list-type="assistir"><i class="fa-solid fa-list-ul"></i> Quero Assistir</button>
-                <button class="btn-add-list" data-list-type="assistidos"><i class="fa-solid fa-check"></i> Já Assisti</button>
-                <button class="btn-add-list" data-list-type="favoritos"><i class="fa-solid fa-star"></i> Favoritos</button>
+                <button class="btn-adicionar-lista" data-list-type="assistir"><i class="fa-solid fa-list-ul"></i> Quero Assistir</button>
+                <button class="btn-adicionar-lista" data-list-type="assistidos"><i class="fa-solid fa-check"></i> Já Assisti</button>
+                <button class="btn-adicionar-lista" data-list-type="favoritos"><i class="fa-solid fa-star"></i> Favoritos</button>
             `;
         }
     }
 
-    async function loadUserLists() {
+    async function carregarListasUsuario() {
         try {
             const response = await fetch(`${backendUrl}/api/listas/${usuarioLogado.id}`);
-            const userMovies = await response.json();
+            const filmesUsuario = await response.json();
             
-            Object.values(lists).forEach(list => list.innerHTML = '');
+            Object.values(listas).forEach(lista => lista.innerHTML = '');
 
-            const moviesByList = { assistir: [], assistidos: [], favoritos: [] };
-            userMovies.forEach(movie => {
-                if (moviesByList[movie.tipo_lista]) {
-                    moviesByList[movie.tipo_lista].push(movie);
+            const filmesPorLista = { assistir: [], assistidos: [], favoritos: [] };
+            filmesUsuario.forEach(filme => {
+                if (filmesPorLista[filme.tipo_lista]) {
+                    filmesPorLista[filme.tipo_lista].push(filme);
                 }
             });
 
-            for (const listName in moviesByList) {
-                displayMovies(moviesByList[listName], lists[listName], listName);
+            for (const nomeLista in filmesPorLista) {
+                exibirFilmes(filmesPorLista[nomeLista], listas[nomeLista], nomeLista);
             }
         } catch (error) {
             console.error('Erro ao carregar listas:', error);
         }
     }
 
-    // ALTERADO: Função unificada para adicionar, mover (update) e remover filmes
-    async function updateList(movieData, listType, action) {
+    async function atualizarLista(dadosFilme, tipoLista, acao) {
         const url = `${backendUrl}/api/listas`;
-        let method = 'POST'; // Padrão para 'add'
+        let method = 'POST'; 
 
-        if (action === 'move') {
+        if (acao === 'move') {
             method = 'PUT';
-        } else if (action === 'remove') {
+        } else if (acao === 'remove') {
             method = 'DELETE';
         }
 
@@ -159,19 +151,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     id_usuario: usuarioLogado.id,
-                    id_filme: movieData.movieId,
-                    titulo_filme: movieData.movieTitle,
-                    poster_path: movieData.posterPath,
-                    tipo_lista: listType
+                    id_filme: dadosFilme.movieId,
+                    titulo_filme: dadosFilme.movieTitle,
+                    poster_path: dadosFilme.posterPath,
+                    tipo_lista: tipoLista
                 })
             });
 
             if (response.ok) {
-                loadUserLists(); 
+                carregarListasUsuario(); 
             } else {
-                const errorData = await response.json();
-                console.error('Erro ao atualizar lista:', errorData.message);
-                alert(`Erro: ${errorData.message}`);
+                const erroData = await response.json();
+                console.error('Erro ao atualizar lista:', erroData.message);
+                alert(`Erro: ${erroData.message}`);
             }
         } catch (error) {
             console.error('Erro de conexão ao atualizar lista:', error);
@@ -180,55 +172,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- EVENT LISTENERS ---
 
-    logoutBtn.addEventListener('click', () => {
+    btnLogout.addEventListener('click', () => {
         localStorage.removeItem('usuarioLogado');
         window.location.href = 'login.html';
     });
 
-    searchForm.addEventListener('submit', (e) => {
+    formBusca.addEventListener('submit', (e) => {
         e.preventDefault();
-        const searchTerm = searchInput.value.trim();
-        searchMovies(searchTerm);
+        const termoBusca = inputBusca.value.trim();
+        buscarFilmes(termoBusca);
     });
 
-    clearSearchBtn.addEventListener('click', () => {
-        searchResultsContainer.innerHTML = '';
-        searchInput.value = '';
-        clearSearchBtn.classList.add('hidden');
-        searchResultsTitle.classList.add('hidden');
-        searchInput.focus();
+    btnLimparBusca.addEventListener('click', () => {
+        containerResultadosBusca.innerHTML = '';
+        inputBusca.value = '';
+        btnLimparBusca.classList.add('oculto');
+        tituloResultadosBusca.classList.add('oculto');
+        inputBusca.focus();
     });
 
-    // ALTERADO: Listener de clique para lidar com 'add', 'move' e 'remove'
     document.body.addEventListener('click', (e) => {
-        const target = e.target.closest('.btn-add-list');
+        const target = e.target.closest('.btn-adicionar-lista');
         if (!target) return;
 
-        const card = target.closest('.movie-card');
-        const listType = target.dataset.listType;
-        const movieData = {
+        const card = target.closest('.card-filme');
+        const tipoLista = target.dataset.listType;
+        const dadosFilme = {
             movieId: card.dataset.movieId,
             movieTitle: card.dataset.movieTitle,
             posterPath: card.dataset.posterPath
         };
         
-        let action = 'add'; // Ação padrão
-        if (target.classList.contains('btn-move')) {
-            action = 'move';
-        } else if (target.classList.contains('btn-remove')) {
-            action = 'remove';
+        let acao = 'add';
+        if (target.classList.contains('btn-mover')) {
+            acao = 'move';
+        } else if (target.classList.contains('btn-remover')) {
+            acao = 'remove';
         }
         
-        updateList(movieData, listType, action);
+        atualizarLista(dadosFilme, tipoLista, acao);
 
-        // Feedback visual apenas para a ação de adicionar
-        if (action === 'add') {
+        if (acao === 'add') {
             target.textContent = 'Adicionado!';
-            target.classList.add('in-list');
+            target.classList.add('na-lista');
             setTimeout(() => { target.disabled = true; }, 300);
         }
     });
 
     // --- INICIALIZAÇÃO ---
-    loadUserLists();
+    carregarListasUsuario();
 });

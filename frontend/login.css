@@ -15,7 +15,7 @@ body {
     background-size: 35px 35px;
 }
 
-.screen {
+.tela {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
@@ -25,12 +25,12 @@ body {
     align-items: center;
 }
 
-.screen.active {
+.tela.ativo {
     display: flex;
 }
 
 /* Novo container principal para o layout de duas colunas */
-.auth-container {
+.container-autenticacao {
     display: flex;
     width: 100%;
     max-width: 900px;
@@ -41,7 +41,7 @@ body {
 }
 
 /* Painéis de imagem e formulário */
-.image-panel, .form-panel {
+.painel-imagem, .painel-formulario {
     flex: 1; /* Faz com que cada painel ocupe 50% da largura */
     display: flex;
     flex-direction: column;
@@ -52,40 +52,40 @@ body {
 }
 
 /* Estilo do Painel de Imagem */
-.image-panel {
+.painel-imagem {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(119, 119, 119, 0.5)), url('Fotos/logo.png') no-repeat center center;
     background-size: cover;
     color: white;
     text-align: center;
 }
 
-.image-content h1 {
+.conteudo-imagem h1 {
     font-size: 3em;
     font-weight: bold;
     margin: 0 0 10px 0;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-.image-content h2 {
+.conteudo-imagem h2 {
     font-size: 1.5em;
     font-weight: normal;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
 }
 
-.image-content i {
+.conteudo-imagem i {
     font-size: 0.9em;
 }
 
 /* Estilo do Painel de Formulário */
-#login-screen .form-panel {
+#tela-login .painel-formulario {
     background-color: #333333;
 }
 
-#register-screen .form-panel {
+#tela-cadastro .painel-formulario {
     background-color: #B71C1C;
 }
 
-.form-wrapper {
+.envolve-formulario {
     width: 100%;
     max-width: 350px;
     display: flex;
@@ -94,7 +94,7 @@ body {
     color: white;
 }
 
-.form-wrapper h1 {
+.envolve-formulario h1 {
     font-size: 2.2em;
     margin-bottom: 20px;
     font-weight: normal;
@@ -102,7 +102,7 @@ body {
     color: rgb(255, 255, 255);
 }
 
-.form-wrapper .sub-text {
+.envolve-formulario .sub-texto {
     font-size: 0.9em;
     color: #E0E0E0;
     margin-bottom: 20px;
@@ -110,19 +110,19 @@ body {
     min-height: 1.2em;
 }
 
-/* Inputs, botões e links (maioria dos estilos originais mantidos e adaptados para .form-wrapper) */
-.password-container {
+/* Inputs, botões e links */
+.container-senha {
     position: relative;
     width: 100%;
     margin-bottom: 15px;
 }
 
-.password-container input {
+.container-senha input {
     width: 100%;
     padding-right: 45px;
 }
 
-.toggle-password {
+.alterna-senha {
     position: absolute;
     top: 50%;
     right: 15px;
@@ -130,9 +130,9 @@ body {
     cursor: pointer;
 }
 
-.form-wrapper input[type="email"],
-.form-wrapper input[type="password"],
-.form-wrapper input[type="text"] {
+.envolve-formulario input[type="email"],
+.envolve-formulario input[type="password"],
+.envolve-formulario input[type="text"] {
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
@@ -142,51 +142,51 @@ body {
     color: white;
 }
 
-.password-container input[type="password"] {
+.container-senha input[type="password"] {
     margin-bottom: 0;
 }
 
 /* Estilos de Input - TELA DE LOGIN */
-#login-screen .form-wrapper input[type="email"],
-#login-screen .form-wrapper input[type="password"],
-#login-screen .form-wrapper input[type="text"] {
+#tela-login .envolve-formulario input[type="email"],
+#tela-login .envolve-formulario input[type="password"],
+#tela-login .envolve-formulario input[type="text"] {
     background-color: #2A2A2A;
     border: 1px solid #404040;
 }
-#login-screen .form-wrapper input::placeholder {
+#tela-login .envolve-formulario input::placeholder {
     color: #AAAAAA;
 }
-#login-screen .toggle-password {
+#tela-login .alterna-senha {
     color: #AAAAAA;
 }
 
 /* Estilos de Input - TELA DE CADASTRO */
-#register-screen .form-wrapper input[type="email"],
-#register-screen .form-wrapper input[type="password"],
-#register-screen .form-wrapper input[type="text"] {
+#tela-cadastro .envolve-formulario input[type="email"],
+#tela-cadastro .envolve-formulario input[type="password"],
+#tela-cadastro .envolve-formulario input[type="text"] {
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
-#register-screen .form-wrapper input::placeholder {
+#tela-cadastro .envolve-formulario input::placeholder {
     color: #FFCDD2;
 }
-#register-screen .toggle-password {
+#tela-cadastro .alterna-senha {
     color: #FFCDD2;
 }
 
-.form-wrapper .forgot-password {
+.envolve-formulario .esqueceu-senha {
     font-size: 0.9em;
     text-decoration: none;
     margin-bottom: 25px;
     align-self: center;
     color: #E0E0E0;
 }
-.form-wrapper .forgot-password:hover {
+.envolve-formulario .esqueceu-senha:hover {
     color: white;
     text-decoration: underline;
 }
 
-.form-wrapper .btn-primary {
+.envolve-formulario .btn-primario {
     width: 100%;
     padding: 15px;
     border: none;
@@ -199,39 +199,39 @@ body {
 }
 
 /* Botões */
-#login-screen .form-wrapper .btn-primary {
+#tela-login .envolve-formulario .btn-primario {
     background-color: #D32F2F;
     color: white;
 }
-#login-screen .form-wrapper .btn-primary:hover {
+#tela-login .envolve-formulario .btn-primario:hover {
     background-color: #B71C1C;
 }
-#register-screen .form-wrapper .btn-primary {
+#tela-cadastro .envolve-formulario .btn-primario {
     background-color: white;
     color: #B71C1C;
 }
-#register-screen .form-wrapper .btn-primary:hover {
+#tela-cadastro .envolve-formulario .btn-primario:hover {
     background-color: #ffcdd2;
     border-color: white;
 }
 
-.form-wrapper .switch-form-text {
+.envolve-formulario .texto-alterna-form {
     font-size: 1.2em;
     text-align: center;
     color: #E0E0E0;
 }
-.form-wrapper .switch-form-text a {
+.envolve-formulario .texto-alterna-form a {
     color: white;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
 }
-.form-wrapper .switch-form-text a:hover {
+.envolve-formulario .texto-alterna-form a:hover {
     text-decoration: underline;
 }
 
-/* --- Estilos para a tela "Esqueci a Senha" (mantém o layout antigo) --- */
-#forgot-password-screen .form-container {
+/* --- Estilos para a tela "Esqueci a Senha" --- */
+#tela-esqueceu-senha .container-formulario {
     width: 100%;
     max-width: 400px;
     padding: 30px;
@@ -244,10 +244,9 @@ body {
     background-color: #555555;
 }
 
-/* SELETOR CORRIGIDO PARA INCLUIR OS TIPOS "TEXT" E "PASSWORD" */
-#forgot-password-screen .form-container input[type="email"],
-#forgot-password-screen .form-container input[type="password"],
-#forgot-password-screen .form-container input[type="text"] {
+#tela-esqueceu-senha .container-formulario input[type="email"],
+#tela-esqueceu-senha .container-formulario input[type="password"],
+#tela-esqueceu-senha .container-formulario input[type="text"] {
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
     width: 100%;
@@ -259,11 +258,11 @@ body {
     color: white;
 }
 
-#forgot-password-screen .form-container input::placeholder {
+#tela-esqueceu-senha .container-formulario input::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
 
-#forgot-password-screen .form-container .btn-primary {
+#tela-esqueceu-senha .container-formulario .btn-primario {
     background-color: #D32F2F;
     color: white;
     width: 100%;
@@ -276,13 +275,12 @@ body {
     margin-bottom: 25px;
 }
 
-
-.form-step {
+.etapa-form {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
 }
-#password-step {
+#etapa-senha {
     display: none;
 }

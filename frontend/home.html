@@ -9,55 +9,55 @@
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-content">
-            <h1>Cine<span class="logo-accent">List</span></h1>
-            <div class="user-info">
-                <span id="welcome-message"></span>
-                <button id="logout-btn" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
+    <header class="cabecalho-principal">
+        <div class="conteudo-cabecalho">
+            <h1>Cine<span class="logo-destaque">List</span></h1>
+            <div class="info-usuario">
+                <span id="mensagem-boas-vindas"></span>
+                <button id="btn-logout" class="btn-logout"><i class="fa-solid fa-right-from-bracket"></i> Sair</button>
             </div>
         </div>
     </header>
 
     <main class="container">
-        <section class="search-section">
+        <section class="secao-busca">
             <h2>Encontre seus filmes...</h2>
-            <form id="search-form">
-                <input type="text" id="search-input" placeholder="Digite o nome de um filme..." autocomplete="off">
-                <button type="submit" class="btn-primary">Buscar</button>
+            <form id="form-busca">
+                <input type="text" id="input-busca" placeholder="Digite o nome de um filme..." autocomplete="off">
+                <button type="submit" class="btn-primario">Buscar</button>
             </form>
         </section>
 
-        <section class="movie-grid-container">
-            <div class="results-header">
-                <h2 id="search-results-title" class="hidden">Resultados da Busca</h2>
-                <button id="clear-search-btn" class="btn-clear hidden">
+        <section class="container-grid-filmes">
+            <div class="cabecalho-resultados">
+                <h2 id="titulo-resultados-busca" class="oculto">Resultados da Busca</h2>
+                <button id="btn-limpar-busca" class="btn-limpar oculto">
                     <i class="fa-solid fa-xmark"></i> Limpar
                 </button>
             </div>
-            <div id="search-results" class="movie-grid">
+            <div id="resultados-busca" class="grid-filmes">
                 </div>
         </section>
 
-        <section class="lists-container">
-            <div class="list">
+        <section class="container-listas">
+            <div class="lista">
                 <h2><i class="fa-solid fa-list-ul"></i> Quero Assistir</h2>
-                <div id="list-assistir" class="movie-grid-lists">
-                    <p class="empty-list-message">Sua lista está vazia. Adicione filmes da busca!</p>
+                <div id="lista-assistir" class="grid-filmes-listas">
+                    <p class="mensagem-lista-vazia">Sua lista está vazia. Adicione filmes da busca!</p>
                 </div>
             </div>
 
-            <div class="list">
+            <div class="lista">
                 <h2><i class="fa-solid fa-check"></i> Já Assisti</h2>
-                <div id="list-assistidos" class="movie-grid-lists">
-                     <p class="empty-list-message">Sua lista está vazia.</p>
+                <div id="lista-assistidos" class="grid-filmes-listas">
+                     <p class="mensagem-lista-vazia">Sua lista está vazia.</p>
                 </div>
             </div>
 
-            <div class="list">
+            <div class="lista">
                 <h2><i class="fa-solid fa-star"></i> Favoritos</h2>
-                <div id="list-favoritos" class="movie-grid-lists">
-                    <p class="empty-list-message">Sua lista está vazia.</p>
+                <div id="lista-favoritos" class="grid-filmes-listas">
+                    <p class="mensagem-lista-vazia">Sua lista está vazia.</p>
                 </div>
             </div>
         </section>
