@@ -1,4 +1,3 @@
-/* style.css */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -30,31 +29,72 @@ body {
     display: flex;
 }
 
-.form-container {
+/* Novo container principal para o layout de duas colunas */
+.auth-container {
+    display: flex;
     width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 900px;
+    min-height: 600px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Painéis de imagem e formulário */
+.image-panel, .form-panel {
+    flex: 1; /* Faz com que cada painel ocupe 50% da largura */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    box-sizing: border-box;
+}
+
+/* Estilo do Painel de Imagem */
+.image-panel {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(119, 119, 119, 0.5)), url('Fotos/logo.png') no-repeat center center;
+    background-size: cover;
+    color: white;
+    text-align: center;
+}
+
+.image-content h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.image-content h2 {
+    font-size: 1.5em;
+    font-weight: normal;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.image-content i {
+    font-size: 0.9em;
+}
+
+/* Estilo do Painel de Formulário */
+#login-screen .form-panel {
+    background-color: #333333;
+}
+
+#register-screen .form-panel {
+    background-color: #B71C1C;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: white;
 }
 
-#login-screen .form-container {
-    background-color: #333333;
-}
-
-#register-screen .form-container {
-    background-color: #B71C1C;
-}
-
-#forgot-password-screen .form-container {
-    background-color: #555555;
-}
-
-.form-container h1 {
+.form-wrapper h1 {
     font-size: 2.2em;
     margin-bottom: 20px;
     font-weight: normal;
@@ -62,7 +102,7 @@ body {
     color: rgb(255, 255, 255);
 }
 
-.form-container .sub-text {
+.form-wrapper .sub-text {
     font-size: 0.9em;
     color: #E0E0E0;
     margin-bottom: 20px;
@@ -70,6 +110,7 @@ body {
     min-height: 1.2em;
 }
 
+/* Inputs, botões e links (maioria dos estilos originais mantidos e adaptados para .form-wrapper) */
 .password-container {
     position: relative;
     width: 100%;
@@ -89,9 +130,9 @@ body {
     cursor: pointer;
 }
 
-.form-container input[type="email"],
-.form-container input[type="password"],
-.form-container input[type="text"] {
+.form-wrapper input[type="email"],
+.form-wrapper input[type="password"],
+.form-wrapper input[type="text"] {
     width: 100%;
     padding: 15px;
     margin-bottom: 15px;
@@ -105,70 +146,47 @@ body {
     margin-bottom: 0;
 }
 
-#login-screen .form-container input[type="email"],
-#login-screen .form-container input[type="password"],
-#login-screen .form-container input[type="text"] {
+/* Estilos de Input - TELA DE LOGIN */
+#login-screen .form-wrapper input[type="email"],
+#login-screen .form-wrapper input[type="password"],
+#login-screen .form-wrapper input[type="text"] {
     background-color: #2A2A2A;
     border: 1px solid #404040;
 }
-#login-screen .form-container input::placeholder {
+#login-screen .form-wrapper input::placeholder {
     color: #AAAAAA;
 }
 #login-screen .toggle-password {
     color: #AAAAAA;
 }
 
-#register-screen .form-container input[type="email"],
-#register-screen .form-container input[type="password"],
-#register-screen .form-container input[type="text"] {
+/* Estilos de Input - TELA DE CADASTRO */
+#register-screen .form-wrapper input[type="email"],
+#register-screen .form-wrapper input[type="password"],
+#register-screen .form-wrapper input[type="text"] {
     background-color: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
-#register-screen .form-container input::placeholder {
+#register-screen .form-wrapper input::placeholder {
     color: #FFCDD2;
 }
 #register-screen .toggle-password {
     color: #FFCDD2;
 }
 
-/* ISSO É O QUE VOCÊ PRECISA */
-#forgot-password-screen .form-container input[type="email"],
-#forgot-password-screen .form-container input[type="password"],
-#forgot-password-screen .form-container input[type="text"] {
-    background-color: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-#forgot-password-screen .form-container input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-#forgot-password-screen .toggle-password {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.form-step {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-}
-
-#password-step {
-    display: none;
-}
-
-.form-container .forgot-password {
+.form-wrapper .forgot-password {
     font-size: 0.9em;
     text-decoration: none;
     margin-bottom: 25px;
     align-self: center;
     color: #E0E0E0;
 }
-.form-container .forgot-password:hover {
+.form-wrapper .forgot-password:hover {
     color: white;
     text-decoration: underline;
 }
 
-.form-container .btn-primary {
+.form-wrapper .btn-primary {
     width: 100%;
     padding: 15px;
     border: none;
@@ -180,37 +198,91 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#login-screen .form-container .btn-primary,
-#forgot-password-screen .form-container .btn-primary {
+/* Botões */
+#login-screen .form-wrapper .btn-primary {
     background-color: #D32F2F;
     color: white;
 }
-#login-screen .form-container .btn-primary:hover,
-#forgot-password-screen .form-container .btn-primary:hover {
+#login-screen .form-wrapper .btn-primary:hover {
     background-color: #B71C1C;
 }
-
-#register-screen .form-container .btn-primary {
-    background-color: #D32F2F;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.5);
+#register-screen .form-wrapper .btn-primary {
+    background-color: white;
+    color: #B71C1C;
 }
-#register-screen .form-container .btn-primary:hover {
-    background-color: #C62828;
+#register-screen .form-wrapper .btn-primary:hover {
+    background-color: #ffcdd2;
     border-color: white;
 }
 
-.form-container .switch-form-text {
+.form-wrapper .switch-form-text {
     font-size: 1.2em;
     text-align: center;
     color: #E0E0E0;
 }
-.form-container .switch-form-text a {
+.form-wrapper .switch-form-text a {
     color: white;
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
 }
-.form-container .switch-form-text a:hover {
+.form-wrapper .switch-form-text a:hover {
     text-decoration: underline;
+}
+
+/* --- Estilos para a tela "Esqueci a Senha" (mantém o layout antigo) --- */
+#forgot-password-screen .form-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    background-color: #555555;
+}
+
+/* SELETOR CORRIGIDO PARA INCLUIR OS TIPOS "TEXT" E "PASSWORD" */
+#forgot-password-screen .form-container input[type="email"],
+#forgot-password-screen .form-container input[type="password"],
+#forgot-password-screen .form-container input[type="text"] {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+    color: white;
+}
+
+#forgot-password-screen .form-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+#forgot-password-screen .form-container .btn-primary {
+    background-color: #D32F2F;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+
+.form-step {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+#password-step {
+    display: none;
 }
