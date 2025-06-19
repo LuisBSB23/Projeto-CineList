@@ -1,3 +1,4 @@
+/* Estilos gerais para o corpo da página de login */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -7,29 +8,31 @@ body {
     min-height: 100vh;
     color: #333333;
     box-sizing: border-box;
-
     background-color: #ffffff;
+    /* Fundo com padrão de grade sutil */
     background-image:
         linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
     background-size: 35px 35px;
 }
 
+/* Estilo base para as "telas" (divs de login, cadastro, etc.) */
 .tela {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    display: none;
+    display: none;/* Todas as telas começam ocultas */
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+/* A classe 'ativo' é adicionada via JS para mostrar a tela correspondente */
 .tela.ativo {
     display: flex;
 }
 
-/* Novo container principal para o layout de duas colunas */
+/* --- LAYOUT DE DUAS COLUNAS PARA LOGIN/CADASTRO --- */
 .container-autenticacao {
     display: flex;
     width: 100%;
@@ -37,7 +40,7 @@ body {
     min-height: 600px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     border-radius: 10px;
-    overflow: hidden;
+    overflow: hidden; /* Evita que o conteúdo saia das bordas arredondadas */
 }
 
 /* Painéis de imagem e formulário */
@@ -51,7 +54,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Estilo do Painel de Imagem */
+/* Estilo do Painel de Imagem (à esquerda no login, à direita no cadastro) */
 .painel-imagem {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(119, 119, 119, 0.5)), url('Fotos/logo.png') no-repeat center center;
     background-size: cover;
@@ -78,13 +81,14 @@ body {
 
 /* Estilo do Painel de Formulário */
 #tela-login .painel-formulario {
-    background-color: #333333;
+    background-color: #333333; /* Fundo escuro para o login */
 }
 
 #tela-cadastro .painel-formulario {
-    background-color: #B71C1C;
+    background-color: #B71C1C; /* Fundo vermelho para o cadastro */
 }
 
+/* Contêiner que envolve os elementos do formulário */
 .envolve-formulario {
     width: 100%;
     max-width: 350px;
@@ -102,21 +106,23 @@ body {
     color: rgb(255, 255, 255);
 }
 
+/* Elemento para exibir mensagens de erro/sucesso */
 .envolve-formulario .sub-texto {
     font-size: 0.9em;
     color: #E0E0E0;
     margin-bottom: 20px;
     text-align: center;
-    min-height: 1.2em;
+    min-height: 1.2em; /* Garante que o layout não "pule" quando uma mensagem aparece */
 }
 
-/* Inputs, botões e links */
+/* --- INPUTS, BOTÕES E LINKS --- */
 .container-senha {
-    position: relative;
+    position: relative; /* Necessário para posicionar o ícone do olho */
     width: 100%;
     margin-bottom: 15px;
 }
 
+/* Ícone de olho para alternar visibilidade da senha */
 .container-senha input {
     width: 100%;
     padding-right: 45px;
@@ -130,6 +136,7 @@ body {
     cursor: pointer;
 }
 
+/* Estilo geral dos campos de input */
 .envolve-formulario input[type="email"],
 .envolve-formulario input[type="password"],
 .envolve-formulario input[type="text"] {
@@ -160,11 +167,11 @@ body {
     color: #AAAAAA;
 }
 
-/* Estilos de Input - TELA DE CADASTRO */
+/* Estilos de Input específicos para a TELA DE CADASTRO */
 #tela-cadastro .envolve-formulario input[type="email"],
 #tela-cadastro .envolve-formulario input[type="password"],
 #tela-cadastro .envolve-formulario input[type="text"] {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.2); /* Fundo semi-transparente */
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 #tela-cadastro .envolve-formulario input::placeholder {
@@ -198,9 +205,9 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Botões */
+/* Estilo específico do botão na TELA DE LOGIN */
 #tela-login .envolve-formulario .btn-primario {
-    background-color: #D32F2F;
+    background-color: #D32F2F; /* Vermelho */
     color: white;
 }
 #tela-login .envolve-formulario .btn-primario:hover {
@@ -221,7 +228,7 @@ body {
     color: #E0E0E0;
 }
 .envolve-formulario .texto-alterna-form a {
-    color: white;
+    color: rgb(255, 255, 255);
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
@@ -230,7 +237,7 @@ body {
     text-decoration: underline;
 }
 
-/* --- Estilos para a tela "Esqueci a Senha" --- */
+/* --- ESTILOS PARA A TELA "ESQUECI A SENHA" --- */
 #tela-esqueceu-senha .container-formulario {
     width: 100%;
     max-width: 400px;
@@ -258,6 +265,16 @@ body {
     color: white;
 }
 
+#tela-esqueceu-senha .texto-alterna-form a {
+    color: #e13930; 
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#tela-esqueceu-senha .texto-alterna-form a:hover {
+    text-decoration: underline; 
+}
+
 #tela-esqueceu-senha .container-formulario input::placeholder {
     color: rgba(255, 255, 255, 0.7);
 }
@@ -281,6 +298,7 @@ body {
     width: 100%;
     align-items: center;
 }
+/* A segunda etapa (inserir nova senha) começa oculta */
 #etapa-senha {
     display: none;
 }

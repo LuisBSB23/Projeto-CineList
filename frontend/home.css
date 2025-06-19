@@ -1,15 +1,18 @@
 /* home.css */
+/* Importa a fonte Roboto do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
+/* Define variáveis de cores globais para manter a consistência do tema */
 :root {
     --cor-fundo: #141414;
     --cor-card: #1C1C1C;
     --cor-texto-primario: #E0E0E0;
     --cor-texto-secundario: #AAAAAA;
-    --cor-destaque: #D32F2F;
-    --cor-destaque-hover: #B71C1C;
+    --cor-destaque: #D32F2F;      /* Vermelho para botões e detalhes */
+    --cor-destaque-hover: #B71C1C; /* Vermelho mais escuro para efeito hover */
 }
 
+/* Estilos base para o corpo da página */
 body {
     margin: 0;
     font-family: 'Roboto', Arial, sans-serif;
@@ -17,19 +20,19 @@ body {
     color: var(--cor-texto-primario);
 }
 
-/* --- CABECALHO --- */
+/* --- ESTILOS DO CABEÇALHO --- */
 .cabecalho-principal {
     background-color: #181818;
     padding: 15px 5%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    position: sticky;
+    position: sticky; /* Mantém o cabeçalho fixo no topo ao rolar a página */
     top: 0;
     z-index: 1000;
 }
 
 .conteudo-cabecalho {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Alinha o logo à esquerda e as infos do usuário à direita */
     align-items: center;
     max-width: 1400px;
     margin: 0 auto;
@@ -49,7 +52,7 @@ body {
 .info-usuario {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 20px;/* Espaçamento entre a mensagem e o botão */
 }
 
 #mensagem-boas-vindas {
@@ -73,7 +76,7 @@ body {
     border-color: var(--cor-destaque);
 }
 
-/* --- CONTAINER PRINCIPAL & SEÇÕES --- */
+/* --- CONTAINER PRINCIPAL E TÍTULOS DE SEÇÃO --- */
 .container {
     max-width: 1400px;
     margin: 30px auto;
@@ -88,7 +91,7 @@ h2 {
     font-size: 1.6em;
     font-weight: 700;
     margin-bottom: 20px;
-    border-left: 4px solid var(--cor-destaque);
+    border-left: 4px solid var(--cor-destaque); /* Linha decorativa à esquerda */
     padding-left: 10px;
     color: white;
 }
@@ -105,7 +108,7 @@ h2 i {
 }
 
 #input-busca {
-    flex-grow: 1;
+    flex-grow: 1; /* Faz o input ocupar o máximo de espaço possível */
     padding: 15px;
     font-size: 1em;
     border-radius: 5px;
@@ -133,12 +136,15 @@ h2 i {
     background-color: var(--cor-destaque-hover);
 }
 
-/* --- Grid de Busca com Cards Menores --- */
+/* --- GRIDS DE FILMES --- */
+
+/* Grid para os resultados da busca (cards menores) */
 #resultados-busca {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); 
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Layout responsivo: cria colunas de no mínimo 140px */
     gap: 20px;
 }
+/* Ajusta o tamanho da fonte nos cards de busca para caber mais informação */
 #resultados-busca .info-filme h3 {
     font-size: 0.9em;
 }
@@ -147,26 +153,26 @@ h2 i {
     padding: 6px;
 }
 
-/* Grid para as listas de usuário (tamanho original) */
+/* Grid para as listas do usuário (cards com tamanho original) */
 .grid-filmes-listas {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Colunas de no mínimo 180px */
     gap: 20px;
 }
 
-/* Estilo geral dos cards */
+/* --- ESTILOS DOS CARDS DE FILME --- */
 .card-filme {
     background-color: var(--cor-card);
     border-radius: 8px;
-    overflow: hidden;
+    overflow: hidden; /* Garante que a imagem não ultrapasse as bordas arredondadas */
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Organiza a imagem e as infos verticalmente */
 }
 
 .card-filme:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
     box-shadow: 0 8px 25px rgba(0,0,0,0.7);
 }
 
@@ -174,13 +180,13 @@ h2 i {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 2 / 3;
-    background-color: #333;
+    aspect-ratio: 2 / 3; /* Mantém a proporção de pôster (2:3) */
+    background-color: #333; /* Cor de fundo para imagens que não carregam */
 }
 
 .info-filme {
     padding: 15px;
-    flex-grow: 1;
+    flex-grow: 1; /* Faz esta área crescer para preencher o espaço restante no card */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -209,7 +215,7 @@ h2 i {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-align: left;
+    text-align: left; /* Alinha o texto e o ícone à esquerda */
 }
 
 .btn-adicionar-lista i {
@@ -223,21 +229,23 @@ h2 i {
     border-color: var(--cor-destaque);
 }
 
+/* Estilo especial para um botão após o filme ser adicionado */
 .btn-adicionar-lista.na-lista {
-    background-color: #004D40; /* Verde escuro */
+    background-color: #004D40; /* Verde escuro para indicar sucesso */
     color: #A7FFEB;
     border-color: #004D40;
-    cursor: not-allowed;
+    cursor: not-allowed; /* Impede novos cliques */
 }
 
+/* Mensagem exibida quando uma lista está vazia */
 .mensagem-lista-vazia {
     color: var(--cor-texto-secundario);
-    grid-column: 1 / -1;
+    grid-column: 1 / -1; /* Faz a mensagem ocupar toda a largura do grid */
     text-align: center;
     padding: 20px;
 }
 
-/* Estilos para o Botão de Limpar e Cabeçalho */
+/* --- Botão de Limpar Busca --- */
 .cabecalho-resultados {
     display: flex;
     justify-content: space-between;
@@ -256,7 +264,7 @@ h2 i {
     border: 1px solid var(--cor-texto-secundario);
     color: var(--cor-texto-secundario);
     padding: 5px 10px;
-    border-radius: 20px;
+    border-radius: 20px; /* Botão arredondado estilo "pílula" */
     cursor: pointer;
     font-size: 0.9em;
     display: flex;
@@ -271,6 +279,7 @@ h2 i {
     border-color: var(--cor-destaque);
 }
 
+/* Classe utilitária para ocultar elementos */
 .oculto {
     display: none !important;
 }
