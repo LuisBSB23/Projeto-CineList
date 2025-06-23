@@ -181,8 +181,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {object} dadosFilme - Contém id, título e poster do filme.
      * @param {string} tipoLista - A lista de destino ('assistir', 'assistidos', 'favoritos').
      * @param {string} acao - A operação a ser realizada ('add', 'move', 'remove').
+     * @param {HTMLElement|null} cardElement - O elemento do card do filme a ser manipulado na UI.
      */
-    async function atualizarLista(dadosFilme, tipoLista, acao) {
+    async function atualizarLista(dadosFilme, tipoLista, acao, cardElement = null) {
         const url = `${backendUrl}/api/listas`;
         let method = 'POST'; // Método padrão é POST (adicionar).
 
@@ -209,6 +210,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 // Se a operação foi bem-sucedida, recarrega as listas para refletir a mudança.
                 carregarListasUsuario(); 
+                // Se a ação for 'add' e o card veio da busca, remova-o da tela.
+                if (acao === 'add' && cardElement && containerResultadosBusca.contains(cardElement)) {
+                    cardElement.remove();
+                }
             } else {
                 // Se houve erro na resposta do servidor, exibe um alerta.
                 const erroData = await response.json();
@@ -267,15 +272,8 @@ document.addEventListener('DOMContentLoaded', () => {
             acao = 'remove';
         }
         
-        // Chama a função para atualizar a lista no backend.
-        atualizarLista(dadosFilme, tipoLista, acao);
-
-        // Fornece um feedback visual imediato para a ação de adicionar.
-        if (acao === 'add') {
-            target.textContent = 'Adicionado!';
-            target.classList.add('na-lista');
-            setTimeout(() => { target.disabled = true; }, 300); // Desabilita o botão para evitar cliques duplicados.
-        }
+        // Chama a função para atualizar a lista no backend, passando o elemento do card.
+        atualizarLista(dadosFilme, tipoLista, acao, card);
     });
 
     // --- INICIALIZAÇÃO ---

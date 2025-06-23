@@ -1,9 +1,9 @@
-# No terminal instale as seguintes dependências:
+# 01.No terminal instale as seguintes dependências:
 
 cd backend
 npm install express cors body-parser dotenv knex mysql2 axios
 
-# Crie um arquivo com o nome .env para armazenar a config do banco de dados e a chave api. 
+# 02.Crie um arquivo com o nome .env para armazenar a config do banco de dados e a chave api. 
 # Conteúdo do arquivo .env:
 # Configuração do Banco de Dados
 DB_HOST=localhost
@@ -16,7 +16,7 @@ DB_PORT=3307
 TMDB_API_KEY= chave api aqui
 
 
-# Para rodar a aplicação web execute o codigo abaixo e clique no link que aparecer no terminal:
+# 03.Para rodar a aplicação web execute o codigo abaixo e clique no link que aparecer no terminal:
 
 node server.js
 node backend/server.js #Se o terminal não estiver na pasta do backend
